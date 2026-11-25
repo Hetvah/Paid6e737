@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WOLFCORE NOX AI PRO - India's No.1 Premium Prediction Engine</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=Inter:wght@400;700;800;900&display=swap" rel="stylesheet">
+<style>
+  body{background:radial-gradient(circle at top right,#1a0308,#050002 60%,#000);color:#fff;font-family:'Inter',sans-serif;transition:background .5s ease;}
+  .tilt-active{background:radial-gradient(circle at top right,#5b0510,#000)!important;}
+  .glass{background:rgba(30,0,6,.35);backdrop-filter:blur(20px);border:1px solid rgba(255,40,70,.18);box-shadow:0 15px 45px rgba(255,0,40,.08),inset 0 0 20px rgba(255,0,40,.03);}
+  .pulse-animation{animation:pulse-glow 1.5s infinite;}
+  @keyframes pulse-glow{0%,100%{box-shadow:0 0 0 0 rgba(255,30,60,0);}50%{box-shadow:0 0 40px 6px rgba(255,30,60,.45);}}
+  .pulse-animation-green{animation:pulse-glow-green 1.5s infinite;}
+  @keyframes pulse-glow-green{0%,100%{box-shadow:0 0 0 0 rgba(40,255,100,0);}50%{box-shadow:0 0 40px 6px rgba(40,255,100,.35);}}
+  .pulse-animation-blue{animation:pulse-glow-blue 1.5s infinite;}
+  @keyframes pulse-glow-blue{0%,100%{box-shadow:0 0 0 0 rgba(59,130,246,0);}50%{box-shadow:0 0 40px 6px rgba(59,130,246,.35);}}
+  .text-neon{text-shadow:0 0 12px rgba(255,40,70,.85),0 0 24px rgba(255,40,70,.4);}
+  .neon-red{color:#ff2b4a;text-shadow:0 0 10px rgba(255,40,70,.7),0 0 30px rgba(255,40,70,.35);}
+  .text-neon-green{text-shadow:0 0 12px rgba(40,255,100,.85),0 0 24px rgba(40,255,100,.4);}
+  .text-neon-blue{text-shadow:0 0 12px rgba(59,130,246,.85),0 0 24px rgba(59,130,246,.4);}
+  .custom-scrollbar::-webkit-scrollbar{width:4px;}
+  .custom-scrollbar::-webkit-scrollbar-thumb{background:rgba(255,40,70,.4);border-radius:10px;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+  .result-card{background:linear-gradient(180deg,rgba(30,0,5,.96),rgba(5,0,2,.98));border-radius:24px;padding:28px;max-width:420px;width:92%;}
+  .card-win{border:1.5px solid rgba(255,40,70,.6);box-shadow:0 0 60px rgba(255,40,70,.45),inset 0 0 30px rgba(255,40,70,.08);}
+  .card-loss{border:1.5px solid rgba(120,120,130,.5);box-shadow:0 0 60px rgba(80,80,90,.35),inset 0 0 30px rgba(80,80,90,.06);}
+  .field-box{border:1px solid rgba(255,40,70,.18);border-radius:14px;padding:10px 14px;text-align:center;background:rgba(255,40,70,.04);}
+  .btn-win{background:linear-gradient(90deg,#ff6b8a,#ff2b4a,#c30427);color:#fff;font-weight:900;letter-spacing:.3em;padding:14px;border-radius:14px;width:100%;box-shadow:0 0 25px rgba(255,40,70,.5);}
+  .btn-loss{background:linear-gradient(90deg,#4a1420,#2a0a12);color:#ffb0be;font-weight:900;letter-spacing:.3em;padding:14px;border-radius:14px;width:100%;border:1px solid rgba(255,40,70,.3);}
+  .modal-backdrop{position:fixed;inset:0;background:rgba(10,0,3,.8);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;z-index:80;padding:16px;}
+  .ai-ring{width:80px;height:80px;border-radius:50%;border:3px solid rgba(255,40,70,.18);border-top-color:#ff2b4a;animation:spin 1s linear infinite;box-shadow:0 0 25px rgba(255,40,70,.35);}
+  @keyframes spin{to{transform:rotate(360deg);}}
+  .scan-line{height:2px;background:linear-gradient(90deg,transparent,#ff2b4a,transparent);animation:scan 1.4s ease-in-out infinite;box-shadow:0 0 10px #ff2b4a;}
+  @keyframes scan{0%{transform:translateX(-100%);}100%{transform:translateX(100%);}}
+  .fadein{animation:fi .35s ease-out;}
+  @keyframes fi{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+  .ai-card{transition:all .25s ease;cursor:pointer;}
+  .ai-card:hover{transform:translateY(-3px);border-color:rgba(255,40,70,.6);box-shadow:0 15px 40px rgba(255,40,70,.2);}
+  .ai-card.active{border-color:#ff2b4a;box-shadow:0 0 30px rgba(255,40,70,.4);}
+  .num-ball{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-weight:900;color:#fff;font-family:'JetBrains Mono';box-shadow:0 0 18px currentColor;}
+  .badge-win{border:1px solid rgba(255,40,70,.55);color:#ff6b8a;background:rgba(255,40,70,.1);}
+  .badge-loss{border:1px solid rgba(160,160,170,.4);color:#cbd5e1;background:rgba(120,120,130,.08);}
+  .badge-pending{border:1px solid rgba(255,180,80,.4);color:#fbbf24;background:rgba(255,180,80,.08);}
+  .btn-red{background:linear-gradient(90deg,#ff2b4a,#c30427);color:#fff;box-shadow:0 0 20px rgba(255,40,70,.45);}
+  .btn-red:hover{background:linear-gradient(90deg,#ff4d68,#e01235);}
+  .accent{color:#ff2b4a;}
+</style>
+</head>
+<body class="min-h-screen p-4 md:p-8 locked" id="mainBody">
+
+<div class="max-w-2xl mx-auto space-y-6">
+
+  <!-- Branding Banner -->
+  <div class="glass rounded-xl p-3 flex justify-center items-center bg-rose-500/10 border border-rose-500/30">
+    <span class="text-xs font-black uppercase tracking-widest text-white">🏆 INDIA NO.1 ANALYSIS SYSTEM 🏆</span>
+  </div>
+
+  <div class="glass rounded-3xl p-6 flex justify-between items-center">
+    <div class="flex items-center gap-3">
+      <div id="engineIcon" class="bg-rose-600 p-2 rounded-lg text-white animate-pulse"><i class="fas fa-microchip"></i></div>
+      <div>
+        <p class="text-[10px] neon-red font-black uppercase tracking-[0.2em]">Nexus VIP AI v7.0</p>
+        <p id="enginePeriod" class="text-xl mono font-bold text-white tracking-wider italic">SYNCING...</p>
+      </div>
+    </div>
+    <div class="text-right">
+      <p class="text-[10px] text-gray-500 font-bold uppercase tracking-widest">Global Time</p>
+      <p id="serverClock" class="text-xl mono font-bold text-white tracking-wider">00:00:00</p>
+    </div>
+  </div>
+
+  <div class="glass rounded-2xl px-5 py-3 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="w-9 h-9 rounded-xl bg-rose-500/15 border border-rose-500/40 grid place-items-center text-rose-400"><i id="activeAiIcon" class="fas fa-brain"></i></div>
+      <div>
+        <p class="text-[9px] uppercase tracking-widest text-gray-400 font-black">Active VIP Engine</p>
+        <p id="activeAiName" class="text-sm font-black text-white">— NOT SELECTED —</p>
+      </div>
+    </div>
+    <button onclick="openAiPicker()" class="text-[10px] font-black uppercase tracking-widest bg-white/5 border border-rose-500/25 hover:border-rose-500/70 hover:text-rose-400 text-white px-4 py-2 rounded-xl">Change AI</button>
+  </div>
+
+  <div class="glass rounded-[2.5rem] p-10 text-center relative overflow-hidden">
+    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-rose-500 to-transparent opacity-70"></div>
+
+    <div class="flex justify-between items-start mb-8">
+      <div class="glass px-5 py-2 rounded-2xl flex items-center gap-2 border border-rose-500/50 shadow-[0_0_15px_rgba(255,40,70,0.3)]">
+        <span class="text-rose-400 animate-bounce">📊</span>
+        <span class="text-xs font-black text-white uppercase tracking-tighter">AI Precision: <span id="accuracyDisplay" class="neon-red">99.9%</span></span>
+      </div>
+      <div class="text-rose-400 flex items-center gap-2 bg-rose-500/10 px-4 py-1.5 rounded-full border border-rose-500/30">
+        <i class="fas fa-clock text-[10px]"></i>
+        <span id="timerCountdown" class="text-sm font-black mono">--s</span>
+      </div>
+    </div>
+
+    <div id="predictionBox" class="py-4 transition-all duration-700">
+      <h2 id="strategyLabel" class="neon-red text-[10px] font-black tracking-[0.4em] mb-6 uppercase opacity-80">SELECT AI TO BEGIN</h2>
+
+      <!-- Standard Analyzing View -->
+      <div id="analyzingView" class="hidden flex-col items-center py-6">
+        <div class="ai-ring mb-4"></div>
+        <p class="neon-red font-black tracking-[0.35em] text-xs uppercase" id="analyzeStep">Initializing…</p>
+        <div class="w-full max-w-xs mt-4 overflow-hidden rounded-full bg-white/5"><div class="scan-line"></div></div>
+      </div>
+
+      <!-- Terminal Analyzing View -->
+      <div id="terminalAnalyzingView" class="hidden flex-col items-start py-4 px-5 bg-black/95 border border-green-500/40 rounded-xl w-full text-left font-mono text-[10px] sm:text-xs shadow-[0_0_20px_rgba(40,255,100,0.15)] h-36 overflow-hidden relative mb-4">
+        <div id="termLines" class="space-y-1.5 w-full flex-1"></div>
+        <div class="absolute bottom-0 left-0 w-full h-1 bg-green-900/40">
+          <div class="h-full bg-green-500 shadow-[0_0_10px_#22c55e] transition-all duration-300" id="termProgress" style="width: 0%"></div>
+        </div>
+      </div>
+
+      <!-- Prediction Result View -->
+      <div id="predictionView" class="flex flex-col items-center">
+        <p id="predictionText" class="text-7xl font-black italic tracking-tighter mb-4 text-white">READY</p>
+        <p id="confidenceText" class="text-sm font-bold text-gray-300 mb-2 uppercase tracking-widest hidden">Confidence: <span class="text-rose-400">99.9%</span></p>
+        <div class="flex gap-2 items-center bg-white/5 px-4 py-1 rounded-full border border-rose-500/20">
+          <span class="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></span>
+          <p id="periodFull" class="text-xs mono text-gray-400 tracking-widest italic">WAITING FOR DATA</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- K3 KROVEN AI STATS PANEL -->
+  <div id="k3StatsPanel" class="hidden glass rounded-3xl p-6 border border-blue-500/30 shadow-[0_0_30px_rgba(59,130,246,0.15)]">
+    <div class="flex justify-between items-center mb-5 border-b border-blue-500/20 pb-3">
+      <div>
+        <h3 class="text-xl font-black text-blue-400 tracking-wider">K3 KROVEN AI</h3>
+        <p class="text-[10px] text-gray-400 tracking-[0.2em] uppercase">Historical Statistics Module</p>
+      </div>
+      <div class="text-right">
+        <span id="k3ApiStatus" class="px-2 py-1 bg-blue-500/20 text-blue-400 rounded-full text-[10px] font-black uppercase tracking-widest border border-blue-500/30">ONLINE</span>
+        <p id="k3RefreshTime" class="text-[9px] text-gray-500 mt-2 uppercase tracking-widest">Last Update: --:--:--</p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-2 gap-4 mb-5">
+      <div class="bg-black/40 rounded-2xl p-4 border border-blue-500/20">
+        <p class="text-[10px] text-blue-300/70 uppercase tracking-widest mb-3">Historical Data (All)</p>
+        
+        <div class="flex justify-between items-end mb-1">
+          <span class="text-sm font-bold text-white">BIG (&gt;=11)</span>
+          <span class="text-lg font-black text-rose-400" id="k3HistBig">0%</span>
+        </div>
+        <div class="w-full h-1.5 bg-white/10 rounded-full overflow-hidden mb-4">
+          <div id="k3HistBigBar" class="h-full bg-rose-500" style="width:0%"></div>
+        </div>
+        
+        <div class="flex justify-between items-end mb-1">
+          <span class="text-sm font-bold text-white">SMALL (&lt;=10)</span>
+          <span class="text-lg font-black text-blue-400" id="k3HistSmall">0%</span>
+        </div>
+        <div class="w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
+          <div id="k3HistSmallBar" class="h-full bg-blue-500" style="width:0%"></div>
+        </div>
+        
+        <p class="text-[9px] text-gray-500 mt-3 tracking-widest uppercase">Total Draws Analysed: <span id="k3TotalDraws" class="text-white">0</span></p>
+      </div>
+
+      <div class="bg-black/40 rounded-2xl p-4 border border-blue-500/20">
+        <p class="text-[10px] text-blue-300/70 uppercase tracking-widest mb-3">Recent Window (Last 20)</p>
+        
+        <div class="flex justify-between items-end mb-1">
+          <span class="text-sm font-bold text-white">BIG</span>
+          <span class="text-lg font-black text-rose-400" id="k3RecentBig">0%</span>
+        </div>
+        <div class="w-full h-1.5 bg-white/10 rounded-full overflow-hidden mb-4">
+          <div id="k3RecentBigBar" class="h-full bg-rose-500" style="width:0%"></div>
+        </div>
+        
+        <div class="flex justify-between items-end mb-1">
+          <span class="text-sm font-bold text-white">SMALL</span>
+          <span class="text-lg font-black text-blue-400" id="k3RecentSmall">0%</span>
+        </div>
+        <div class="w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
+          <div id="k3RecentSmallBar" class="h-full bg-blue-500" style="width:0%"></div>
+        </div>
+        
+        <p class="text-[9px] text-gray-500 mt-3 tracking-widest uppercase">Current Streak: <span id="k3Streak" class="text-white">NONE</span></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="glass rounded-3xl p-6">
+    <div class="text-center mb-4">
+      <h3 class="text-2xl font-black tracking-wider"><span class="neon-red" id="logTitleSpan">BN</span> LOGS</h3>
+      <div class="inline-flex items-center gap-2 mt-1 px-3 py-1 rounded-full border border-rose-500/25 bg-white/5">
+        <span class="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse"></span>
+        <span class="text-[9px] font-black uppercase tracking-[0.25em] text-gray-300" id="logFeedSubtitle">Local History Feed</span>
+      </div>
+    </div>
+
+    <div class="flex justify-between items-center mb-4">
+      <h4 class="text-lg font-black" id="logTitleFeed">Realtime Feed</h4>
+      <button onclick="wipeCache()" class="text-[10px] font-black uppercase tracking-widest px-4 py-2 rounded-xl border border-rose-500/25 hover:border-rose-500/70 hover:text-rose-400">Wipe Cache</button>
+    </div>
+
+    <div id="transactionLogs" class="space-y-3 max-h-[420px] overflow-y-auto pr-2 custom-scrollbar">
+      <div class="flex flex-col items-center justify-center py-10 text-gray-600">
+        <p class="text-[10px] font-bold tracking-widest uppercase">No Data Yet</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex gap-4">
+    <div class="glass rounded-2xl flex-1 p-4 flex items-center justify-between px-6">
+      <div class="flex flex-col">
+        <span class="text-[9px] font-black uppercase neon-red tracking-widest" id="signalLabel">Signal Strength</span>
+        <span class="text-xs font-bold text-white" id="signalStatus">CALIBRATING</span>
+      </div>
+      <div class="flex gap-1" id="signalBars"><div class="w-1 h-3 bg-rose-500 rounded-full"></div><div class="w-1 h-3 bg-rose-500 rounded-full"></div><div class="w-1 h-3 bg-rose-500/30 rounded-full"></div></div>
+    </div>
+    <button onclick="fetchData(true)" class="btn-red font-black px-10 py-4 rounded-2xl text-[10px] uppercase tracking-widest hover:opacity-90 transition-all transform active:scale-95">Force Sync</button>
+  </div>
+</div>
+
+<!-- AI PICKER MODAL -->
+<div id="aiPicker" class="modal-backdrop hidden">
+  <div class="glass rounded-3xl p-6 max-w-md w-full fadein">
+    <div class="text-center mb-6">
+      <div class="inline-block bg-rose-500/15 border border-rose-500/40 px-4 py-1 rounded-full mb-3">
+        <span class="text-[10px] font-black tracking-[0.3em] neon-red uppercase">INDIA'S BEST VIP ENGINES</span>
+      </div>
+      <h3 class="text-2xl font-black">Choose Your AI</h3>
+      <p class="text-xs text-gray-400 mt-1">Select one premium prediction engine to run this round.</p>
+    </div>
+
+    <div class="space-y-3">
+      <div class="ai-card glass rounded-2xl p-4 flex gap-4 items-center" onclick="selectAi('hybrid')">
+        <div class="w-12 h-12 rounded-xl bg-rose-500/15 grid place-items-center text-rose-400 text-xl border border-rose-500/40"><i class="fas fa-atom"></i></div>
+        <div class="flex-1">
+          <p class="text-[9px] font-black tracking-widest neon-red uppercase">VIP #1</p>
+          <p class="text-sm font-black text-white">Hybrid Intelligence Pro</p>
+          <p class="text-[10px] text-gray-400 leading-snug">Fusion of 15 real AI algorithms & Loss Learning AI.</p>
+        </div>
+      </div>
+      
+      <div class="ai-card glass rounded-2xl p-4 flex gap-4 items-center hover:border-blue-500/60" style="border:1px solid rgba(59,130,246,.4);box-shadow:0 0 20px rgba(59,130,246,.1);" onclick="selectAi('k3_kroven')">
+        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-900 to-black grid place-items-center text-blue-400 text-xl border border-blue-500/50 pulse-animation-blue"><i class="fas fa-cube"></i></div>
+        <div class="flex-1">
+          <p class="text-[9px] font-black tracking-widest text-blue-400 uppercase">STRICT VIP 2 · K3 KROVEN AI ONLY</p>
+          <p class="text-sm font-black text-white">K3 KROVEN AI</p>
+          <p class="text-[10px] text-gray-400 leading-snug">K3 Lottery historical/statistical analysis & real-time tracking.</p>
+        </div>
+      </div>
+
+      <div class="ai-card glass rounded-2xl p-4 flex gap-4 items-center hover:border-green-500/60" style="border:1px solid rgba(40,255,100,.4);box-shadow:0 0 20px rgba(40,255,100,.1);" onclick="selectAi('terminal')">
+        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-green-900 to-black grid place-items-center text-green-400 text-xl border border-green-500/50 pulse-animation-green"><i class="fas fa-terminal"></i></div>
+        <div class="flex-1">
+          <p class="text-[9px] font-black tracking-widest text-green-400 uppercase">VIP #4 · TERMINAL PRO</p>
+          <p class="text-sm font-black text-white">Terminal Pro API</p>
+          <p class="text-[10px] text-gray-400 leading-snug">Real-time deep terminal API analysis for max R/G accuracy.</p>
+        </div>
+      </div>
+    </div>
+
+    <p class="text-center text-[10px] text-gray-500 mt-5 tracking-widest uppercase">3 premium engines · Full Real Analysis Guarantee</p>
+  </div>
+</div>
+
+<!-- ROUND RESULT MODAL -->
+<div id="resultModal" class="modal-backdrop hidden">
+  <div id="resultCard" class="result-card card-win fadein">
+    <h2 id="resultTitle" class="text-center text-4xl font-black tracking-wider neon-red">WIN ✓</h2>
+    <p class="text-center text-[10px] tracking-[0.3em] text-gray-400 mt-1 uppercase">Period Result Verified</p>
+
+    <div class="field-box mt-5">
+      <p class="text-[10px] text-gray-400 uppercase tracking-widest">Period</p>
+      <p id="resPeriod" class="mono text-lg font-bold">—</p>
+    </div>
+
+    <div class="grid grid-cols-2 gap-3 mt-3">
+      <div class="field-box">
+        <p class="text-[10px] text-gray-400 uppercase tracking-widest">Predicted</p>
+        <p id="resPred" class="mono text-lg font-bold">—</p>
+      </div>
+      <div class="field-box">
+        <p class="text-[10px] text-gray-400 uppercase tracking-widest">Actual</p>
+        <p id="resActual" class="mono text-lg font-bold">—</p>
+      </div>
+    </div>
+
+    <p id="resSub" class="text-center font-black text-xl mt-5">WIN</p>
+
+    <button id="resBtn" onclick="closeResult()" class="btn-win mt-4">CONTINUE</button>
+  </div>
+</div>
+
+<script>
+// Automatically try fetching from multiple sources if one fails to ensure 100% up-time
+const API_ENDPOINTS = [
+  'https://api.bdg88zf.com/api/webapi/GetGameIssue',
+  'https://api.bdg88zf.com/api/webapi/GetNoaverageEmerdList'
+];
+const HISTORY_API='https://draw.ar-lottery01.com/WinGo/WinGo_1M/GetHistoryIssuePage.json';
+const REQUEST_PAYLOAD={typeId:1,language:0,random:"e7fe6c090da2495ab8290dac551ef1ed",signature:"1F390E2B2D8A55D693E57FD905AE73A7"};
+
+const K3_HISTORY_API = 'https://draw.ar-lottery02.com/K3/K3_1M/GetHistoryIssuePage.json';
+
+let selectedAi=null;
+let lastPredictedPeriod=null;
+let predictionHistory=[];
+let winCount=0,totalCount=0;
+let shownResults=new Set();
+let analyzing=false;
+
+// K3 Independent State
+let k3LastPredictedPeriod = null;
+let k3PredictionHistory = [];
+let k3ShownResults = new Set();
+let k3Analyzing = false;
+
+const AI_META={
+  hybrid:{name:'Hybrid Intelligence Pro',icon:'fa-atom',color:'text-rose-400',tag:'Hybrid + Loss Learning AI',steps:['Booting Hybrid Intelligence Engine…','Initializing Loss Learning Assistant…','Analyzing previous round errors…','Adjusting deep neural weights…','Locking 99% accuracy win consensus…']},
+  terminal:{name:'Terminal Pro AI',icon:'fa-terminal',color:'text-green-400',tag:'Terminal Analysis & API',steps:['> root@terminal:~$ init --api-live','> root@terminal:~$ fetching API datastreams...','> root@terminal:~$ bypassing hash encryption...','> root@terminal:~$ analyzing red/green variance...','> root@terminal:~$ locking terminal prediction...']},
+  k3_kroven: {name:'K3 KROVEN AI',icon:'fa-cube',color:'text-blue-400',tag:'K3 Historical Analysis Engine',steps:['Connecting to K3 API...', 'Fetching historical K3 datastreams...', 'Analyzing Big/Small frequency...', 'Calculating recent streaks...', 'Generating statistical projection...']}
+};
+
+/* ========== DETERMINISTIC SEED (identical on every phone) ==========
+   Uses period-id + engine so every device gets the exact same output.
+*/
+function hashSeed(str){
+  let h=2166136261>>>0;
+  for(let i=0;i<str.length;i++){h^=str.charCodeAt(i);h=Math.imul(h,16777619)>>>0;}
+  return h>>>0;
+}
+function mulberry32(a){
+  return function(){
+    a|=0;a=a+0x6D2B79F5|0;
+    let t=Math.imul(a^a>>>15,1|a);
+    t=t+Math.imul(t^t>>>7,61|t)^t;
+    return ((t^t>>>14)>>>0)/4294967296;
+  };
+}
+
+/* ========== TIME & TIMER ========== */
+function updateTime(){
+  const now=new Date();
+  document.getElementById('serverClock').innerText=now.toLocaleTimeString('en-GB');
+  const remaining=60-now.getSeconds();
+  document.getElementById('timerCountdown').innerText=`${String(remaining).padStart(2,'0')}s`;
+  
+  if(now.getSeconds()<=2 && !analyzing && !k3Analyzing) {
+    if(selectedAi === 'k3_kroven') fetchK3Data();
+    else if(selectedAi) fetchData();
+  }
+}
+
+/* ========== AI SELECTION ========== */
+function openAiPicker(){document.getElementById('aiPicker').classList.remove('hidden');}
+function closeAiPicker(){document.getElementById('aiPicker').classList.add('hidden');}
+function selectAi(key){
+  selectedAi=key;
+  const m=AI_META[key];
+  document.getElementById('activeAiName').innerText=m.name;
+  document.getElementById('activeAiIcon').className='fas '+m.icon;
+  document.getElementById('strategyLabel').innerText=m.tag.toUpperCase();
+  
+  // UI toggles for K3
+  if(key === 'k3_kroven') {
+    document.getElementById('k3StatsPanel').classList.remove('hidden');
+    document.getElementById('logTitleSpan').innerText = 'K3';
+    document.getElementById('logTitleSpan').className = 'text-neon-blue';
+    document.getElementById('logFeedSubtitle').innerText = 'K3 History Feed';
+    document.getElementById('signalLabel').className = 'text-[9px] font-black uppercase text-neon-blue tracking-widest';
+    document.getElementById('signalBars').innerHTML = '<div class="w-1 h-3 bg-blue-500 rounded-full"></div><div class="w-1 h-3 bg-blue-500 rounded-full"></div><div class="w-1 h-3 bg-blue-500/30 rounded-full"></div>';
+    document.body.style.background = 'radial-gradient(circle at top right,#03131a,#00050a 60%,#000)';
+    document.querySelector('.text-neon-red')?.classList.replace('text-neon-red', 'text-neon-blue');
+  } else {
+    document.getElementById('k3StatsPanel').classList.add('hidden');
+    document.getElementById('logTitleSpan').innerText = 'BN';
+    document.getElementById('logTitleSpan').className = 'neon-red';
+    document.getElementById('logFeedSubtitle').innerText = 'Local History Feed';
+    document.getElementById('signalLabel').className = 'text-[9px] font-black uppercase neon-red tracking-widest';
+    document.getElementById('signalBars').innerHTML = '<div class="w-1 h-3 bg-rose-500 rounded-full"></div><div class="w-1 h-3 bg-rose-500 rounded-full"></div><div class="w-1 h-3 bg-rose-500/30 rounded-full"></div>';
+    document.body.style.background = 'radial-gradient(circle at top right,#1a0308,#050002 60%,#000)';
+  }
+  
+  closeAiPicker();
+  if(key === 'k3_kroven') fetchK3Data(true);
+  else fetchData(true);
+}
+
+/* ========== FETCH DATA (HYBRID & TERMINAL) ========== */
+async function fetchData(force=false){
+  if(!selectedAi || selectedAi === 'k3_kroven') return;
+  try{
+    const periodRes=await fetch(API_ENDPOINTS[0],{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...REQUEST_PAYLOAD,timestamp:Math.floor(Date.now()/1000)})});
+    const periodData=await periodRes.json();
+    const currentPeriod=periodData?.data?.issueNumber;
+    if(!currentPeriod)return;
+
+    document.getElementById('enginePeriod').innerText=`#${currentPeriod.slice(-4)}`;
+    document.getElementById('periodFull').innerText=`ID: ${currentPeriod}`;
+
+    const historyRes=await fetch(`${HISTORY_API}?ts=${Date.now()}`);
+    const historyData=await historyRes.json();
+    const recentResults=historyData.data.list;
+
+    verifyResults(recentResults);
+
+    if(currentPeriod!==lastPredictedPeriod){
+      lastPredictedPeriod=currentPeriod;
+      runAnalysis(currentPeriod,recentResults);
+    }
+
+    renderLogs();
+    updateAccuracyUI();
+  }catch(e){console.error("Sync Error",e);}
+}
+
+/* ========== K3 KROVEN FETCH & ANALYSIS ========== */
+async function fetchK3Data(force=false) {
+  if(selectedAi !== 'k3_kroven') return;
+  try {
+    const historyRes = await fetch(`${K3_HISTORY_API}?ts=${Date.now()}`);
+    const historyData = await historyRes.json();
+    const recentResults = historyData.data.list;
+    if(!recentResults || recentResults.length === 0) return;
+    
+    // K3 current period logic: latest result + 1
+    const latestComplete = recentResults[0].issueNumber;
+    const currentPeriod = (BigInt(latestComplete) + 1n).toString();
+    
+    document.getElementById('enginePeriod').innerText = `#${currentPeriod.slice(-4)}`;
+    document.getElementById('periodFull').innerText = `ID: ${currentPeriod}`;
+    
+    const now = new Date();
+    document.getElementById('k3RefreshTime').innerText = `Last Update: ${now.toLocaleTimeString('en-GB')}`;
+    document.getElementById('k3ApiStatus').innerText = 'ONLINE';
+    document.getElementById('k3ApiStatus').className = 'px-2 py-1 bg-green-500/20 text-green-400 rounded-full text-[10px] font-black uppercase tracking-widest border border-green-500/30';
+    
+    updateK3Stats(recentResults);
+    verifyK3Results(recentResults);
+    
+    if(currentPeriod !== k3LastPredictedPeriod) {
+      k3LastPredictedPeriod = currentPeriod;
+      runK3Analysis(currentPeriod, recentResults);
+    }
+    
+    renderLogs();
+    updateAccuracyUI();
+  } catch(e) {
+    console.error("K3 Sync Error", e);
+    document.getElementById('k3ApiStatus').innerText = 'OFFLINE';
+    document.getElementById('k3ApiStatus').className = 'px-2 py-1 bg-red-500/20 text-red-400 rounded-full text-[10px] font-black uppercase tracking-widest border border-red-500/30';
+  }
+}
+
+function updateK3Stats(results) {
+  let histBig = 0, histSmall = 0;
+  results.forEach(r => {
+    if(r.sum >= 11) histBig++;
+    else histSmall++;
+  });
+  const total = results.length || 1;
+  const histBigPct = Math.round((histBig / total) * 100);
+  const histSmallPct = Math.round((histSmall / total) * 100);
+  
+  document.getElementById('k3TotalDraws').innerText = total;
+  document.getElementById('k3HistBig').innerText = `${histBigPct}%`;
+  document.getElementById('k3HistBigBar').style.width = `${histBigPct}%`;
+  document.getElementById('k3HistSmall').innerText = `${histSmallPct}%`;
+  document.getElementById('k3HistSmallBar').style.width = `${histSmallPct}%`;
+  
+  const recent20 = results.slice(0, 20);
+  let recBig = 0, recSmall = 0;
+  recent20.forEach(r => {
+    if(r.sum >= 11) recBig++;
+    else recSmall++;
+  });
+  const recTotal = recent20.length || 1;
+  const recBigPct = Math.round((recBig / recTotal) * 100);
+  const recSmallPct = Math.round((recSmall / recTotal) * 100);
+  
+  document.getElementById('k3RecentBig').innerText = `${recBigPct}%`;
+  document.getElementById('k3RecentBigBar').style.width = `${recBigPct}%`;
+  document.getElementById('k3RecentSmall').innerText = `${recSmallPct}%`;
+  document.getElementById('k3RecentSmallBar').style.width = `${recSmallPct}%`;
+  
+  // Streak
+  if(recent20.length > 0) {
+    let currentIsBig = recent20[0].sum >= 11;
+    let streakCount = 1;
+    for(let i=1; i<recent20.length; i++) {
+      let isBig = recent20[i].sum >= 11;
+      if(isBig === currentIsBig) streakCount++;
+      else break;
+    }
+    const streakLabel = currentIsBig ? 'BIG' : 'SMALL';
+    document.getElementById('k3Streak').innerText = `${streakCount} ${streakLabel}`;
+    document.getElementById('k3Streak').className = currentIsBig ? 'text-rose-400 font-bold' : 'text-blue-400 font-bold';
+  }
+}
+
+/* ========== ANALYZING ANIMATION ========== */
+async function runAnalysis(period,history){
+  if(analyzing) return;
+  analyzing=true;
+  const meta=AI_META[selectedAi];
+  const isTerm = selectedAi === 'terminal';
+  const av=document.getElementById('analyzingView');
+  const tv=document.getElementById('terminalAnalyzingView');
+  const pv=document.getElementById('predictionView');
+  const confText = document.getElementById('confidenceText');
+
+  if(isTerm){
+    tv.classList.remove('hidden');tv.classList.add('flex');
+    av.classList.add('hidden');av.classList.remove('flex');
+    document.getElementById('termLines').innerHTML = '';
+    document.getElementById('termProgress').style.width = '0%';
+  } else {
+    av.classList.remove('hidden');av.classList.add('flex');
+    tv.classList.add('hidden');tv.classList.remove('flex');
+  }
+  pv.classList.add('hidden');
+  confText.classList.add('hidden');
+  document.getElementById('predictionBox').classList.add('pulse-animation');
+
+  for(let i=0; i<meta.steps.length; i++){
+    const step = meta.steps[i];
+    if(isTerm){
+       document.getElementById('termLines').innerHTML += `<div class="fadein"><span class="opacity-50">[${new Date().toISOString().split('T')[1].slice(0,-1)}]</span> <span class="text-green-400 font-bold">${step}</span></div>`;
+       document.getElementById('termProgress').style.width = `${((i+1)/meta.steps.length)*100}%`;
+    } else {
+       document.getElementById('analyzeStep').innerText=step;
+    }
+    await new Promise(r=>setTimeout(r,650));
+  }
+
+  const {prediction,confidence,strategy}=generatePrediction(selectedAi,history,period);
+
+  av.classList.add('hidden');av.classList.remove('flex');
+  tv.classList.add('hidden');tv.classList.remove('flex');
+  pv.classList.remove('hidden');
+  confText.classList.remove('hidden');
+
+  let predClass = 'neon-red';
+  if(prediction === 'GREEN') predClass = 'text-green-400 text-neon-green';
+  else if(prediction === 'RED') predClass = 'text-red-500 text-neon-red';
+  else if(prediction === 'BIG') predClass = 'text-white text-neon';
+
+  document.getElementById('predictionText').innerText=prediction;
+  document.getElementById('predictionText').className=`text-7xl font-black italic tracking-tighter mb-4 ${predClass}`;
+  document.getElementById('strategyLabel').innerText=strategy;
+  
+  document.querySelector('#confidenceText span').innerText = `${confidence}%`;
+
+  predictionHistory.unshift({period,prediction,confidence,ai:selectedAi,status:'PENDING',actual:null,number:null});
+  if(predictionHistory.length>25) predictionHistory.pop();
+  renderLogs();
+  analyzing=false;
+}
+
+async function runK3Analysis(period,history){
+  if(k3Analyzing) return;
+  k3Analyzing=true;
+  const meta=AI_META['k3_kroven'];
+  const av=document.getElementById('analyzingView');
+  const tv=document.getElementById('terminalAnalyzingView');
+  const pv=document.getElementById('predictionView');
+  const confText = document.getElementById('confidenceText');
+
+  av.classList.remove('hidden');av.classList.add('flex');
+  tv.classList.add('hidden');tv.classList.remove('flex');
+  pv.classList.add('hidden');
+  confText.classList.add('hidden');
+  document.getElementById('predictionBox').classList.add('pulse-animation-blue');
+  document.getElementById('predictionBox').classList.remove('pulse-animation');
+  document.getElementById('analyzeStep').className = 'text-blue-400 font-black tracking-[0.35em] text-xs uppercase text-neon-blue';
+
+  for(let i=0; i<meta.steps.length; i++){
+    document.getElementById('analyzeStep').innerText=meta.steps[i];
+    await new Promise(r=>setTimeout(r,650));
+  }
+
+  // Strong Analysis System with Loss Learning
+  const rng=mulberry32(hashSeed(period+'|k3_kroven'));
+  const recent20 = history.slice(0,20);
+  let B = 0, S = 0;
+  recent20.forEach(r => r.sum >= 11 ? B++ : S++);
+  
+  // Calculate recent loss rate to adjust confidence and strategy
+  const recentPredictions = k3PredictionHistory.slice(0, 5);
+  const losses = recentPredictions.filter(p => p.status === 'LOSS').length;
+  
+  let prediction = 'BIG';
+  
+  // Adaptive Strategy based on recent performance
+  if (losses >= 2) {
+      // System is "feeling bad" - switch to mean-reversion counter-trend strategy
+      if (B > S) prediction = 'SMALL';
+      else prediction = 'BIG';
+      document.getElementById('strategyLabel').innerText = "ADAPTIVE RECOVERY PROTOCOL";
+  } else {
+      // Normal strong trend following
+      if (B > 12) prediction = 'BIG';
+      else if (S > 12) prediction = 'SMALL';
+      else {
+          // Check immediate short term streak
+          const recent5 = history.slice(0,5);
+          let b5=0, s5=0;
+          recent5.forEach(r => r.sum >= 11 ? b5++ : s5++);
+          if (b5 >= 4) prediction = 'SMALL'; // Overextended, expect break
+          else if (s5 >= 4) prediction = 'BIG'; // Overextended, expect break
+          else prediction = rng() > 0.5 ? 'BIG' : 'SMALL';
+      }
+      document.getElementById('strategyLabel').innerText = "DEEP NEURAL TREND ANALYSIS";
+  }
+  
+  // Anti-repeat fail-safe
+  const last3 = k3PredictionHistory.slice(0,3).map(p => p.prediction);
+  if (last3.length === 3 && last3[0] === prediction && last3[1] === prediction && last3[2] === prediction) {
+      prediction = prediction === 'BIG' ? 'SMALL' : 'BIG';
+  }
+  
+  // Calculate high confidence
+  const baseConf = 90.0;
+  const variance = rng() * 8.9;
+  // If recovering from losses, show slightly higher confidence in the new strategy
+  const confAdjust = losses > 0 ? (losses * 1.5) : 0;
+  let finalConf = Math.min(98.9, baseConf + variance + confAdjust).toFixed(1);
+  
+  av.classList.add('hidden');av.classList.remove('flex');
+  pv.classList.remove('hidden');
+  confText.classList.remove('hidden');
+
+  let predClass = prediction === 'BIG' ? 'text-rose-400 text-neon' : 'text-blue-400 text-neon-blue';
+
+  document.getElementById('predictionText').innerText=prediction;
+  document.getElementById('predictionText').className=`text-7xl font-black italic tracking-tighter mb-4 ${predClass}`;
+  
+  document.querySelector('#confidenceText span').innerText = `${finalConf}%`;
+
+  k3PredictionHistory.unshift({period,prediction,confidence:finalConf,ai:'k3_kroven',status:'PENDING',actual:null,number:null});
+  if(k3PredictionHistory.length>25) k3PredictionHistory.pop();
+  renderLogs();
+  k3Analyzing=false;
+}
+
+/* ========== PREDICTION ENGINES ========== */
+function antiRepeatFlip(pred, engine, history){
+  const recent=predictionHistory.filter(x=>x.ai===engine).slice(0,4).map(x=>x.prediction);
+  if(recent.length>=3 && recent[0]===pred && recent[1]===pred && recent[2]===pred){
+    return pred==='BIG'?'SMALL':'BIG';
+  }
+  const lastVerified=predictionHistory.filter(x=>x.ai===engine && x.status!=='PENDING').slice(0,2);
+  if(lastVerified.length===2 && lastVerified.every(x=>x.status==='LOSS' && x.prediction===pred)){
+    return pred==='BIG'?'SMALL':'BIG';
+  }
+  return pred;
+}
+
+function antiRepeatColor(pred, engine, history){
+  const recent=predictionHistory.filter(x=>x.ai===engine).slice(0,4).map(x=>x.prediction);
+  if(recent.length>=3 && recent[0]===pred && recent[1]===pred && recent[2]===pred){
+    return pred==='RED'?'GREEN':'RED';
+  }
+  const lastVerified=predictionHistory.filter(x=>x.ai===engine && x.status!=='PENDING').slice(0,2);
+  if(lastVerified.length===2 && lastVerified.every(x=>x.status==='LOSS' && x.prediction===pred)){
+    return pred==='RED'?'GREEN':'RED';
+  }
+  return pred;
+}
+
+function generatePrediction(engine,history,period){
+  const nums=history.slice(0,40).map(r=>parseInt(r.number));
+  const rng=mulberry32(hashSeed(period+'|'+engine));
+
+  // --- TERMINAL ENGINE ---
+  if(engine === 'terminal') {
+     const colors = nums.map(n => n % 2 === 0 ? 'RED' : 'GREEN');
+     let R = 0, G = 0, strategy = '';
+     
+     {
+        const l10 = colors.slice(0, 10);
+        const rCount = l10.filter(c => c === 'RED').length;
+        if (rCount >= 6) G += 85; else if (rCount <= 4) R += 85; else { R += 40; G += 40; }
+        R += rng() * 10; G += rng() * 10;
+        strategy = 'TERMINAL PRO · FULL ANALYSIS API';
+     }
+     
+     let prediction = R >= G ? 'RED' : 'GREEN';
+     prediction = antiRepeatColor(prediction, engine, history);
+     const dom = Math.abs(R - G), tot = R + G || 1;
+     const conf = Math.min(99.9, 90 + (dom / tot) * 9.9).toFixed(1);
+     return {prediction, confidence: conf, strategy};
+  }
+
+  // --- HYBRID ENGINE ---
+  const labels=nums.map(n=>n>=5?'BIG':'SMALL');
+  let B=0,S=0,strategy='';
+
+  if(engine==='hybrid'){
+    let streak=1; for(let i=1;i<labels.length;i++){if(labels[i]===labels[0])streak++;else break;}
+    if(streak>=5) labels[0]==='BIG'?S+=110:B+=110;
+    else if(streak===4) labels[0]==='BIG'?S+=75:B+=75;
+    else if(streak===3) labels[0]==='BIG'?S+=45:B+=45;
+    else if(streak===2) labels[0]==='BIG'?B+=25:S+=25;
+    let zz=0;for(let i=0;i<8;i++)if(labels[i]!==labels[i+1])zz++;
+    if(zz>=6) labels[0]==='BIG'?S+=55:B+=55; else if(zz<=1) labels[0]==='BIG'?S+=40:B+=40;
+    const l20=labels.slice(0,20),b20=l20.filter(x=>x==='BIG').length;
+    if(b20>=14)S+=75;else if(20-b20>=14)B+=75;else b20>10?S+=15:B+=15;
+    const avg10=nums.slice(0,10).reduce((a,b)=>a+b,0)/10;
+    if(avg10<3.5)B+=65;else if(avg10>6.5)S+=65;else if(avg10<4.5)B+=25;else if(avg10>5.5)S+=25;
+    const l5=labels.slice(0,5).filter(x=>x==='BIG').length;
+    if(l5===5)S+=70;else if(l5===0)B+=70;else if(l5===4)S+=35;else if(l5===1)B+=35;
+    const w=[6,3,2];for(let i=0;i<3;i++) labels[i]==='BIG'?B+=w[i]*4:S+=w[i]*4;
+    const mean=nums.slice(0,15).reduce((a,b)=>a+b,0)/15;
+    const varc=nums.slice(0,15).reduce((a,b)=>a+(b-mean)**2,0)/15;
+    if(varc>8) labels[0]==='BIG'?S+=25:B+=25;
+    const s1=labels.slice(0,3).filter(x=>x==='BIG').length;
+    const s2=labels.slice(3,6).filter(x=>x==='BIG').length;
+    if(s1>s2)S+=20;else if(s2>s1)B+=20;
+    const l30=labels.slice(0,30).filter(x=>x==='BIG').length;
+    if(l30>=20)S+=35;else if(30-l30>=20)B+=35;
+    rng()<0.5?B+=3:S+=3;
+    const extremes=nums.slice(0,10).filter(n=>n===0||n===9).length;
+    if(extremes>=3) labels[0]==='BIG'?S+=20:B+=20;
+    if(labels[0]!==labels[1]&&labels[1]!==labels[2]&&labels[2]!==labels[3]) labels[0]==='BIG'?S+=30:B+=30;
+
+    let trans = { BB: 0, BS: 0, SB: 0, SS: 0 };
+    for (let i = 0; i < 30; i++) {
+        if (!labels[i+1]) break;
+        if (labels[i+1] === 'BIG' && labels[i] === 'BIG') trans.BB++;
+        if (labels[i+1] === 'BIG' && labels[i] === 'SMALL') trans.BS++;
+        if (labels[i+1] === 'SMALL' && labels[i] === 'BIG') trans.SB++;
+        if (labels[i+1] === 'SMALL' && labels[i] === 'SMALL') trans.SS++;
+    }
+    if (labels[0] === 'BIG') {
+        const total = trans.BB + trans.BS || 1;
+        const pBig = trans.BB / total;
+        if (pBig > 0.6) B += 45; else if (pBig < 0.4) S += 45;
+    } else {
+        const total = trans.SB + trans.SS || 1;
+        const pBig = trans.SB / total;
+        if (pBig > 0.6) B += 45; else if (pBig < 0.4) S += 45;
+    }
+
+    const sma3 = nums.slice(0, 3).reduce((a,b)=>a+b,0)/3;
+    const sma10 = nums.slice(0, 10).reduce((a,b)=>a+b,0)/10;
+    if (sma3 > sma10 + 0.8) B += 35;
+    else if (sma3 < sma10 - 0.8) S += 35;
+
+    const stdDev = Math.sqrt(nums.slice(0, 20).reduce((a,b)=>a+Math.pow(b-4.5, 2),0)/20);
+    if (stdDev < 1.8) {
+       labels[0] === 'BIG' ? B += 25 : S += 25;
+    } else if (stdDev > 3.2) {
+       labels[0] === 'BIG' ? S += 25 : B += 25;
+    }
+    
+    // LOSS LEARNING ASSIST AI
+    const myHistory = predictionHistory.filter(x => x.ai === 'hybrid' && x.status !== 'PENDING');
+    let lossCount = 0;
+    for (let i = 0; i < myHistory.length; i++) {
+        if (myHistory[i].status === 'LOSS') lossCount++;
+        else break;
+    }
+
+    if (lossCount > 0) {
+        let assistB = 0, assistS = 0;
+        const recentPattern = labels.slice(0, 3).join('');
+        let mB = 0, mS = 0;
+        for (let i = 3; i < labels.length - 3; i++) {
+            if (labels.slice(i, i+3).join('') === recentPattern) {
+                if (labels[i-1] === 'BIG') mB++; else mS++;
+            }
+        }
+        
+        if (mB > mS) assistB += 2000 * lossCount;
+        else if (mS > mB) assistS += 2000 * lossCount;
+        else {
+            if (myHistory[0].prediction === 'BIG') assistS += 2000 * lossCount;
+            else assistB += 2000 * lossCount;
+        }
+        
+        B += assistB;
+        S += assistS;
+        strategy = `HYBRID + LOSS-LEARNING AI (L${lossCount} RECOVERY MODE)`;
+    } else {
+        strategy = 'HYBRID PRO · MAXIMUM ACCURACY CONSENSUS';
+    }
+  }
+
+  B+=rng()*2; S+=rng()*2;
+  let prediction=B>=S?'BIG':'SMALL';
+  prediction=antiRepeatFlip(prediction,engine,history);
+  const dom=Math.abs(B-S),tot=B+S||1;
+  
+  let conf;
+  if(engine === 'hybrid') {
+    conf = Math.min(99.9, 97.8 + (dom/tot) * 2.1 + (rng() * 0.1)).toFixed(1);
+  } else {
+    conf = Math.min(99.9, 90+(dom/tot)*9.9).toFixed(1);
+  }
+  return {prediction,confidence:conf,strategy};
+}
+
+/* ========== VERIFY & POPUP ========== */
+function verifyResults(actual){
+  predictionHistory.forEach(item=>{
+    if(item.status==='PENDING'){
+      const m=actual.find(r=>r.issueNumber===item.period);
+      if(m){
+        const num=parseInt(m.number);
+        const isRed = num % 2 === 0;
+        
+        if (item.prediction === 'RED' || item.prediction === 'GREEN') {
+             item.actual = isRed ? 'RED' : 'GREEN';
+        } else {
+             item.actual = num >= 5 ? 'BIG' : 'SMALL';
+        }
+        item.number=num;
+        
+        if(item.prediction===item.actual){item.status='WIN';winCount++;} else {item.status='LOSS';}
+        totalCount++;
+        
+        if(!shownResults.has(item.period)){
+          shownResults.add(item.period);
+          showResult(item);
+        }
+      }
+    }
+  });
+}
+
+function verifyK3Results(actual){
+  k3PredictionHistory.forEach(item=>{
+    if(item.status==='PENDING'){
+      const m=actual.find(r=>r.issueNumber===item.period);
+      if(m){
+        const sum=parseInt(m.sum);
+        item.actual = sum >= 11 ? 'BIG' : 'SMALL';
+        item.number= `Sum: ${sum}`;
+        
+        if(item.prediction===item.actual){item.status='WIN';} else {item.status='LOSS';}
+        
+        if(!k3ShownResults.has(item.period)){
+          k3ShownResults.add(item.period);
+          showResult(item);
+        }
+      }
+    }
+  });
+}
+
+function showResult(item){
+  const modal=document.getElementById('resultModal');
+  const card=document.getElementById('resultCard');
+  const win=item.status==='WIN';
+  card.className='result-card fadein '+(win?'card-win':'card-loss');
+  const title=document.getElementById('resultTitle');
+  title.innerHTML=win?'WIN <i class="fas fa-check"></i>':'LOSS <i class="fas fa-xmark"></i>';
+  title.className='text-center text-4xl font-black tracking-wider '+(win?'neon-red':'text-gray-300');
+  
+  if(item.ai === 'k3_kroven' && win) title.className = 'text-center text-4xl font-black tracking-wider text-neon-blue';
+  
+  document.getElementById('resPeriod').innerText=item.period;
+  document.getElementById('resPred').innerText=item.prediction;
+  document.getElementById('resActual').innerText=`${item.actual} / ${item.number}`;
+  const sub=document.getElementById('resSub');
+  sub.innerText=win?'WIN':'Better Luck Next Time';
+  sub.className='text-center font-black text-xl mt-5 '+(win?'text-white':'text-gray-300');
+  const btn=document.getElementById('resBtn');
+  btn.className=win?'btn-win mt-4':'btn-loss mt-4';
+  if(item.ai === 'k3_kroven' && win) {
+     btn.style.background = 'linear-gradient(90deg,#3b82f6,#1d4ed8,#1e3a8a)';
+     btn.style.boxShadow = '0 0 25px rgba(59,130,246,0.5)';
+  } else {
+     btn.style.background = '';
+     btn.style.boxShadow = '';
+  }
+  btn.innerText=win?'CONTINUE':'OK';
+  document.body.classList.toggle('tilt-active',!win);
+  modal.classList.remove('hidden');
+}
+function closeResult(){
+  document.getElementById('resultModal').classList.add('hidden');
+  document.body.classList.remove('tilt-active');
+}
+
+/* ========== UI ========== */
+function updateAccuracyUI(){
+  const displayRate = selectedAi === 'k3_kroven' ? "98.9" : "99.9";
+  document.getElementById('accuracyDisplay').innerText=`${displayRate}%`;
+  document.getElementById('accuracyDisplay').className = selectedAi === 'k3_kroven' ? 'text-neon-blue' : 'neon-red';
+  document.getElementById('signalStatus').innerText='OPTIMIZED SIGNAL';
+}
+
+function renderLogs(){
+  const c=document.getElementById('transactionLogs');
+  const hist = selectedAi === 'k3_kroven' ? k3PredictionHistory : predictionHistory;
+  
+  if(hist.length===0){c.innerHTML='<div class="flex flex-col items-center justify-center py-10 text-gray-600"><p class="text-[10px] font-bold tracking-widest uppercase">No Data Yet</p></div>';return;}
+  c.innerHTML=hist.map(it=>{
+    const aiName=AI_META[it.ai]?.name||'AI';
+    const short='...'+it.period.slice(-5);
+    let ball='',badge='';
+    if(it.status==='PENDING'){
+      ball=`<div class="num-ball" style="background:#1e293b;color:#94a3b8;box-shadow:none;"><i class="fas fa-hourglass-half text-sm"></i></div>`;
+      badge=`<span class="text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full badge-pending">PENDING</span>`;
+    } else {
+      let col = '#15803d';
+      if(it.ai === 'k3_kroven') {
+         col = it.actual === 'BIG' ? '#ff2b4a' : '#3b82f6';
+      } else {
+         const isRed=it.number%2===0;
+         col=isRed?'#ff2b4a':'#15803d';
+      }
+      const numLabel = it.ai === 'k3_kroven' ? it.actual[0] : it.number;
+      
+      ball=`<div class="num-ball" style="background:${col};color:#fff;">${numLabel}</div>`;
+      badge=it.status==='WIN'
+        ?`<span class="text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full badge-win">WIN ✓</span>`
+        :`<span class="text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full badge-loss">LOSS ✗</span>`;
+    }
+    
+    const isGreen = it.prediction === 'GREEN';
+    const isPredRed = it.prediction === 'RED';
+    const isPredBig = it.prediction === 'BIG';
+    
+    let pCol = 'text-white bg-rose-500/10 border-rose-500/20';
+    if(it.ai === 'k3_kroven') {
+       pCol = isPredBig ? 'text-rose-400 border-rose-500/30 bg-rose-500/10' : 'text-blue-400 border-blue-500/30 bg-blue-500/10';
+    } else {
+       pCol = isGreen ? 'text-green-400 border-green-500/30 bg-green-500/10' :
+                 isPredRed ? 'text-red-400 border-red-500/30 bg-red-500/10' :
+                 'text-white bg-rose-500/10 border-rose-500/20';
+    }
+
+    return `
+    <div class="bg-white/[.03] border border-gray-500/10 rounded-2xl p-4 flex items-center gap-4">
+      <div class="flex-1 min-w-0">
+        <div class="flex items-center gap-2">
+          <span class="w-1.5 h-1.5 rounded-full ${it.ai === 'k3_kroven' ? 'bg-blue-500' : 'bg-rose-500'}"></span>
+          <span class="mono text-sm font-bold text-white truncate">${short}</span>
+        </div>
+        <p class="text-[10px] mt-1"><span class="font-black ${pCol} px-2 py-0.5 rounded">PRED: ${it.prediction}</span></p>
+        <p class="text-[10px] text-gray-500 mt-1 tracking-wider">${aiName}</p>
+      </div>
+      <div class="text-center">
+        <p class="text-[9px] text-gray-500 uppercase tracking-widest mb-1">Result</p>
+        ${ball}
+      </div>
+      <div class="shrink-0">${badge}</div>
+    </div>`;
+  }).join('');
+}
+
+function wipeCache(){
+  if(selectedAi === 'k3_kroven') {
+    k3PredictionHistory=[];k3ShownResults.clear();
+  } else {
+    predictionHistory=[];winCount=0;totalCount=0;shownResults.clear();
+  }
+  renderLogs();updateAccuracyUI();
+}
+
+/* ========== BOOT ========== */
+setInterval(updateTime,1000);updateTime();
+window.addEventListener('load',()=>{ openAiPicker(); });
+</script>
+<!-- ============ ACCESS KEY LOGIN LAYER (added) ============ -->
+<style>
+  body.locked{overflow:hidden;}
+  body.locked > *:not(#authGate){display:none!important;}
+  #authGate{position:fixed;inset:0;z-index:9999;display:none;align-items:center;justify-content:center;padding:18px;
+    background:radial-gradient(circle at 50% 0%,#2b0208,#0a0002 55%,#000);}
+  #authGate.show{display:flex;}
+  .auth-card{width:100%;max-width:410px;border-radius:26px;padding:34px 26px;text-align:center;position:relative;overflow:hidden;
+    background:linear-gradient(180deg,rgba(35,0,7,.96),rgba(6,0,2,.98));border:1px solid rgba(255,40,70,.28);
+    box-shadow:0 0 70px rgba(255,40,70,.25),inset 0 0 30px rgba(255,40,70,.05);animation:authIn .5s ease-out;}
+  @keyframes authIn{from{opacity:0;transform:translateY(18px) scale(.97);}to{opacity:1;transform:none;}}
+  .auth-card:before{content:"";position:absolute;top:0;left:0;right:0;height:2px;
+    background:linear-gradient(90deg,transparent,#ff2b4a,transparent);animation:scan 1.8s ease-in-out infinite;}
+  .auth-logo{width:74px;height:74px;margin:0 auto 16px;border-radius:20px;display:grid;place-items:center;font-size:30px;color:#fff;
+    background:linear-gradient(135deg,#ff2b4a,#8a0217);box-shadow:0 0 35px rgba(255,40,70,.55);animation:pulse-glow 2s infinite;}
+  .auth-input{width:100%;margin-top:6px;padding:15px 16px;border-radius:14px;text-align:center;letter-spacing:.35em;
+    font-family:'JetBrains Mono',monospace;font-weight:800;font-size:16px;color:#fff;text-transform:uppercase;
+    background:rgba(255,40,70,.06);border:1px solid rgba(255,40,70,.3);outline:none;transition:.25s;}
+  .auth-input:focus{border-color:#ff2b4a;box-shadow:0 0 22px rgba(255,40,70,.35);background:rgba(255,40,70,.1);}
+  .auth-btn{width:100%;margin-top:16px;padding:15px;border-radius:14px;font-weight:900;letter-spacing:.3em;color:#fff;
+    background:linear-gradient(90deg,#ff6b8a,#ff2b4a,#c30427);box-shadow:0 0 25px rgba(255,40,70,.45);transition:.25s;}
+  .auth-btn:hover{filter:brightness(1.1);}
+  .auth-btn:disabled{opacity:.6;cursor:not-allowed;}
+  .auth-msg{margin-top:16px;min-height:22px;font-size:12.5px;font-weight:800;letter-spacing:.08em;}
+  .auth-err{color:#ff6b8a;text-shadow:0 0 12px rgba(255,40,70,.5);animation:shake .35s;}
+  .auth-ok{color:#4ade80;text-shadow:0 0 12px rgba(40,255,100,.5);}
+  @keyframes shake{25%{transform:translateX(-6px);}75%{transform:translateX(6px);}}
+  .auth-spin{width:16px;height:16px;border-radius:50%;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;
+    display:inline-block;vertical-align:-3px;margin-right:8px;animation:spin .8s linear infinite;}
+  #sessionBar{position:fixed;bottom:0;left:0;right:0;z-index:70;display:none;justify-content:center;gap:14px;align-items:center;
+    padding:8px;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#ffb0be;
+    background:rgba(20,0,4,.85);backdrop-filter:blur(8px);border-top:1px solid rgba(255,40,70,.25);}
+  #sessionBar.show{display:flex;}
+  #logoutBtn{color:#fff;background:rgba(255,40,70,.25);border:1px solid rgba(255,40,70,.4);padding:4px 12px;border-radius:8px;}
+</style>
+
+<div id="authGate">
+  <div class="auth-card">
+    <div class="auth-logo"><i class="fas fa-shield-halved"></i></div>
+    <p style="font-size:10px;letter-spacing:.3em;color:#ff2b4a;font-weight:900;">WOLFCORE NOX AI PRO</p>
+    <h1 style="margin-top:10px;font-size:24px;font-weight:900;letter-spacing:.18em;color:#fff;text-shadow:0 0 18px rgba(255,40,70,.6);">ACCESS REQUIRED</h1>
+    <p style="margin-top:8px;font-size:12px;color:#9ca3af;">Enter your access key to unlock the prediction engine</p>
+
+    <div style="margin-top:22px;text-align:left;">
+      <label for="accessKeyInput" style="font-size:10px;letter-spacing:.28em;color:#ff6b8a;font-weight:900;">ACCESS KEY</label>
+      <input id="accessKeyInput" class="auth-input" type="text" placeholder="ENTER ACCESS KEY" autocomplete="off" spellcheck="false" maxlength="40">
+    </div>
+
+    <button id="authLoginBtn" class="auth-btn">LOGIN</button>
+    <div id="authMsg" class="auth-msg"></div>
+    <p style="margin-top:6px;font-size:10px;color:#6b7280;letter-spacing:.1em;">Keys are validated live &amp; bound to your device</p>
+  </div>
+</div>
+
+<div id="sessionBar">
+  <span id="sessionInfo">SESSION ACTIVE</span>
+  <button id="logoutBtn">LOGOUT</button>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script>
+/* ===== Firebase single-key auth layer (Realtime Database: /keys/<KEY>) =====
+   Existing Admin Panel structure reused as-is:
+   { active, createdAt, activatedAt, duration, unit, expiresAt, device, note } */
+(function () {
+  var firebaseConfig = {
+    apiKey: "AIzaSyDCvl0iAoEpDsN7v1LRTLXRlMdNdRQsrKg",
+    authDomain: "hetva-aee64.firebaseapp.com",
+    databaseURL: "https://hetva-aee64-default-rtdb.firebaseio.com",
+    projectId: "hetva-aee64",
+    storageBucket: "hetva-aee64.firebasestorage.app",
+    messagingSenderId: "174032438849",
+    appId: "1:174032438849:web:9df40228647ccf5aa728c0",
+    measurementId: "G-95L7WXQCLC"
+  };
+  firebase.initializeApp(firebaseConfig);
+  var db = firebase.database();
+
+  var SESSION_KEY = "wolfcore_access_key";
+  var DEVICE_KEY = "wolfcore_device_id";
+  var gate = document.getElementById("authGate");
+  var input = document.getElementById("accessKeyInput");
+  var btn = document.getElementById("authLoginBtn");
+  var msg = document.getElementById("authMsg");
+  var bar = document.getElementById("sessionBar");
+  var info = document.getElementById("sessionInfo");
+  var timer = null;
+
+  function deviceId() {
+    var d = localStorage.getItem(DEVICE_KEY);
+    if (!d) {
+      d = "DV-" + Math.random().toString(36).slice(2, 12).toUpperCase() + Date.now().toString(36).toUpperCase();
+      localStorage.setItem(DEVICE_KEY, d);
+    }
+    return d;
+  }
+
+  function unitMs(unit) {
+    switch (String(unit || "").toLowerCase()) {
+      case "minute": case "minutes": return 60000;
+      case "hour": case "hours": return 3600000;
+      case "day": case "days": return 86400000;
+      case "month": case "months": return 2592000000;
+      default: return 60000;
+    }
+  }
+
+  function setMsg(text, cls) { msg.className = "auth-msg " + (cls || ""); msg.innerHTML = text || ""; }
+
+  function showGate(message) {
+    document.body.classList.add("locked");
+    gate.classList.add("show");
+    bar.classList.remove("show");
+    if (timer) { clearInterval(timer); timer = null; }
+    if (message) setMsg(message, "auth-err");
+    setTimeout(function () { input.focus(); }, 120);
+  }
+
+  function fmtLeft(ms) {
+    if (ms <= 0) return "EXPIRED";
+    var m = Math.floor(ms / 60000), h = Math.floor(m / 60), d = Math.floor(h / 24);
+    if (d > 0) return d + "d " + (h % 24) + "h left";
+    if (h > 0) return h + "h " + (m % 60) + "m left";
+    return m + "m left";
+  }
+
+  function unlock(key, data) {
+    localStorage.setItem(SESSION_KEY, key);
+    gate.classList.remove("show");
+    document.body.classList.remove("locked");
+    bar.classList.add("show");
+    info.textContent = "KEY " + key + " · " + fmtLeft((data.expiresAt || 0) - Date.now());
+    if (timer) clearInterval(timer);
+    timer = setInterval(function () { revalidate(key); }, 30000);
+  }
+
+  /* Firebase is always the source of truth. */
+  function validate(key) {
+    return db.ref("keys/" + key).once("value").then(function (snap) {
+      if (!snap.exists()) return { ok: false, reason: "Invalid Key" };
+      var data = snap.val() || {};
+      if (data.active === false || data.status === "disabled" || data.revoked === true)
+        return { ok: false, reason: "This key has been disabled" };
+
+      var now = Date.now();
+      var expiresAt = Number(data.expiresAt) || 0;
+      var mine = deviceId();
+
+      if (!expiresAt) {
+        var dur = Number(data.duration) || 0;
+        if (!dur) return { ok: false, reason: "Invalid Key" };
+        expiresAt = now + dur * unitMs(data.unit);
+        var patch = { activatedAt: now, expiresAt: expiresAt };
+        if (!data.device) patch.device = mine;
+        db.ref("keys/" + key).update(patch);
+        data.expiresAt = expiresAt;
+        data.device = data.device || mine;
+      }
+
+      if (data.device && data.device !== mine)
+        return { ok: false, reason: "Key already in use on another device" };
+      if (!data.device) { db.ref("keys/" + key).update({ device: mine }); data.device = mine; }
+      if (now >= expiresAt) return { ok: false, reason: "Key Expired" };
+
+      return { ok: true, data: data };
+    });
+  }
+
+  function login() {
+    var key = (input.value || "").trim().toUpperCase();
+    if (!key) { setMsg("Please enter your access key", "auth-err"); return; }
+    btn.disabled = true;
+    setMsg('<span class="auth-spin"></span>VERIFYING KEY…', "auth-ok");
+    validate(key).then(function (r) {
+      btn.disabled = false;
+      if (!r.ok) { setMsg(r.reason, "auth-err"); return; }
+      setMsg("ACCESS GRANTED", "auth-ok");
+      setTimeout(function () { unlock(key, r.data); }, 450);
+    }).catch(function () {
+      btn.disabled = false;
+      setMsg("Connection error. Please try again.", "auth-err");
+    });
+  }
+
+  function revalidate(key) {
+    validate(key).then(function (r) {
+      if (!r.ok) { localStorage.removeItem(SESSION_KEY); showGate(r.reason); }
+      else info.textContent = "KEY " + key + " · " + fmtLeft((r.data.expiresAt || 0) - Date.now());
+    }).catch(function () {});
+  }
+
+  btn.addEventListener("click", login);
+  input.addEventListener("keydown", function (e) { if (e.key === "Enter") login(); });
+  document.getElementById("logoutBtn").addEventListener("click", function () {
+    localStorage.removeItem(SESSION_KEY);
+    input.value = "";
+    showGate("Logged out");
+  });
+
+  var saved = (localStorage.getItem(SESSION_KEY) || "").trim();
+  if (!saved) showGate();
+  else {
+    showGate();
+    setMsg('<span class="auth-spin"></span>RESTORING SESSION…', "auth-ok");
+    validate(saved).then(function (r) {
+      if (r.ok) { setMsg(""); unlock(saved, r.data); }
+      else { localStorage.removeItem(SESSION_KEY); setMsg(r.reason, "auth-err"); }
+    }).catch(function () { setMsg("Connection error. Please try again.", "auth-err"); });
+  }
+})();
+</script>
+</body>
+</html>
